@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Toaster } from "sonner";
 import { AppShell } from "@/components/app-shell";
-import { WeirProvider } from "@/components/weir-provider";
+import { Providers } from "@/components/providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-background text-foreground">
-        <WeirProvider>
+        <Providers>
           <AppShell>{children}</AppShell>
           <Toaster
             theme="dark"
@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               className: "bg-card text-foreground border-0 shadow-card font-sans",
             }}
           />
-        </WeirProvider>
+        </Providers>
       </body>
     </html>
   );

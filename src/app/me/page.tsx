@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo } from "react";
 import { Identicon } from "@/components/marks";
+import { PrivyDeskCard } from "@/components/privy-desk-card";
 import { FeedCard } from "@/components/widgets";
 import { Button } from "@/components/ui/button";
 import { formatPct, formatQty, formatUsd } from "@/lib/weir/format";
@@ -48,6 +49,8 @@ export default function Me() {
         <Stat label="USDC" value={formatUsd(cash)} />
         <Stat label="Open bags" value={String(bags.length)} />
       </dl>
+
+      <PrivyDeskCard />
 
       <h2 className="mt-8 font-display text-xl">Positions</h2>
       <div className="mt-3 flex flex-col gap-2">
