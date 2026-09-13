@@ -1,19 +1,29 @@
 "use client";
 
 import { usePrivy, useWallets } from "@privy-io/react-auth";
+import { usePrivyGate } from "@/components/privy-gate";
 import { Button } from "@/components/ui/button";
 import { privyAppId, shortAddress } from "@/lib/privy/config";
 
 export function PrivyDeskCard() {
+  const privyActive = usePrivyGate();
+
   if (!privyAppId) {
     return (
       <div className="mt-6 rounded-xl bg-card p-4 shadow-card">
         <p className="text-xs tracking-wide text-muted uppercase">Wallet</p>
         <p className="mt-2 text-sm text-muted">
           Set <code className="text-foreground">NEXT_PUBLIC_PRIVY_APP_ID</code> in{" "}
-          <code className="text-foreground">.env.local</code> to enable Privy login on Robinhood
-          Chain.
+          <code className="text-foreground">.env</code> to enable Privy login on Robinhood Chain.
         </p>
+      </div>
+    );
+  }
+
+  if (!privyActive) {
+    return (
+      <div className="mt-6 rounded-xl bg-card p-4 shadow-card">
+        <p className="text-sm text-muted">Loading wallet…</p>
       </div>
     );
   }

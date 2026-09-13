@@ -1,6 +1,7 @@
 "use client";
 
 import { usePrivy, useWallets } from "@privy-io/react-auth";
+import { usePrivyGate } from "@/components/privy-gate";
 import { Button } from "@/components/ui/button";
 import { privyAppId, shortAddress } from "@/lib/privy/config";
 
@@ -11,17 +12,19 @@ export function PrivyAuthButton({
   size?: "default" | "sm";
   className?: string;
 }) {
-  if (!privyAppId) {
+  const privyActive = usePrivyGate();
+
+  if (!privyAppId || !privyActive) {
     return (
       <Button
         type="button"
         size={size}
         variant="outline"
         className={className}
-        title="Set NEXT_PUBLIC_PRIVY_APP_ID in .env.local"
+        title={!privyAppId ? "Set NEXT_PUBLIC_PRIVY_APP_ID in .env" : undefined}
         disabled
       >
-        Connect
+        {!privyAppId ? "Connect" : "…"}
       </Button>
     );
   }

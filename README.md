@@ -2,28 +2,36 @@
 
 Next.js port of the weir demo UI — community-governed launchpad for utility tokens (propose, vote, raise, trade).
 
+Wallet layer: **Circle user-controlled wallets on Arc Testnet** (not Privy / not Robinhood).
+
 ## Scripts
 
 ```bash
 npm install
-cp .env.example .env.local   # then set NEXT_PUBLIC_PRIVY_APP_ID
+cp .env.example .env   # fill Circle + Google values
 npm run build
 npm test
-npm run dev                  # only when you want to browse locally
+npm run dev            # only when you want to browse locally
 ```
 
-## Privy
+## Circle user-controlled wallets (Arc)
 
-Embedded auth + wallet via [`@privy-io/react-auth`](https://docs.privy.io/).
+1. Create keys in [Circle Developer Console](https://console.circle.com/).
+2. **Wallets → User Controlled → Configurator**: copy **App ID**, enable **Google** social login with your Google OAuth Web Client ID.
+3. Set in `.env`:
 
-1. Create an app at [dashboard.privy.io](https://dashboard.privy.io).
-2. Set `NEXT_PUBLIC_PRIVY_APP_ID` in `.env.local`.
-3. In the Privy dashboard, allow your local origin (e.g. `http://localhost:3000`).
+```bash
+CIRCLE_API_KEY=...
+NEXT_PUBLIC_CIRCLE_APP_ID=...
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=...
+```
 
-**Default chain:** Robinhood Chain (`4663`). Also supports Robinhood testnet, Arbitrum, Base, and Ethereum.
+4. Allow `http://localhost:3000` as the Google OAuth redirect URI.
 
-Without an app ID the UI still builds and runs; Connect stays disabled and `/me` shows setup instructions.
+Flow in the app: **Connect** → Google OAuth → **Create Arc wallet** (SCA on `ARC-TESTNET`) → address + USDC balance on `/me`.
+
+Without env vars the UI still builds; Connect stays disabled and `/me` shows setup hints.
 
 ## Stack
 
-Next.js 15 (App Router), React 19, Tailwind CSS v4, Zustand, Privy, Radix UI, Sonner, Recharts.
+Next.js 15 (App Router), React 19, Tailwind CSS v4, Zustand, Circle Web SDK (`@circle-fin/w3s-pw-web-sdk`), Radix UI, Sonner, Recharts.

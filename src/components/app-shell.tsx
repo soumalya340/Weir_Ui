@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Compass, Layers, Radio, User, Vote } from "lucide-react";
 import { WeirMark } from "@/components/marks";
-import { PrivyAuthButton } from "@/components/privy-auth-button";
+import { CircleAuthButton } from "@/components/circle-auth-button";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { formatCompactUsd } from "@/lib/weir/format";
@@ -39,7 +39,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <Button asChild variant="accent" className="w-full">
           <Link href="/launch">Propose</Link>
         </Button>
-        <PrivyAuthButton className="mt-2 w-full" />
+        <CircleAuthButton className="mt-2 w-full" />
         <Link
           href="/me"
           className="mt-3 flex h-11 items-center justify-between rounded-md px-3 text-sm shadow-card hover:shadow-card-hover"
@@ -53,7 +53,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <Brand />
         <div className="flex items-center gap-2">
           <span className="tabular text-sm text-muted">{formatCompactUsd(cash)}</span>
-          <PrivyAuthButton size="sm" />
+          <CircleAuthButton size="sm" />
           <Button asChild size="sm" variant="accent">
             <Link href="/launch">Propose</Link>
           </Button>
