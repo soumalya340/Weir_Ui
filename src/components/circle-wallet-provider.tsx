@@ -14,6 +14,7 @@ import { getCookie, setCookie } from "cookies-next";
 import type { W3SSdk } from "@circle-fin/w3s-pw-web-sdk";
 import { SocialLoginProvider } from "@circle-fin/w3s-pw-web-sdk/dist/src/types";
 import {
+  CIRCLE_CHAIN_LABEL,
   circleAppId,
   circleConfigured,
   googleClientId,
@@ -284,7 +285,7 @@ export function CircleWalletProvider({ children }: { children: ReactNode }) {
     try {
       setBusy(true);
       setError(null);
-      setStatus("Initializing Arc wallet…");
+      setStatus(`Initializing ${CIRCLE_CHAIN_LABEL} wallet…`);
       const { ok, data } = await api("initializeUser", {
         userToken: loginResult.userToken,
       });
@@ -292,7 +293,7 @@ export function CircleWalletProvider({ children }: { children: ReactNode }) {
       if (!ok) {
         if (data.code === 155106) {
           await loadWallets(loginResult.userToken);
-          setStatus("Wallet already exists on Arc");
+          setStatus(`Wallet already exists on ${CIRCLE_CHAIN_LABEL}`);
           return;
         }
         setError(data.error || data.message || "Initialize failed");
@@ -318,7 +319,7 @@ export function CircleWalletProvider({ children }: { children: ReactNode }) {
           void (async () => {
             await new Promise((r) => setTimeout(r, 1500));
             await loadWallets(loginResult.userToken);
-            setStatus("Arc wallet ready");
+            setStatus(`${CIRCLE_CHAIN_LABEL} wallet ready`);
             resolve();
           })();
         });
