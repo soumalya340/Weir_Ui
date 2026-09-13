@@ -164,7 +164,7 @@ export default function WeirHero() {
             mixBlendMode: "screen",
             opacity: 0.24,
             backgroundImage: 'url("/hero-bg.jpg")',
-            backgroundSize: "150% auto",
+            backgroundSize: "120% auto",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center 58%",
             WebkitMaskImage:
